@@ -1,0 +1,77 @@
+//Flood fill
+
+#include<iostream>
+
+
+using namespace std;
+
+void display_array(int array[][30],int N)
+{
+    cout<<endl;
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N;j++)
+        {
+            cout<<array[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+
+void dfs_1(int Image[][30],bool vis[][30],int cur_x,int cur_y,int N,int pix_value,int put_value)
+{
+    Image[cur_x][cur_y]=put_value;
+
+    if(cur_x+1<N && vis[cur_x+1][cur_y]==0 && Image[cur_x+1][cur_y]==pix_value)
+    {
+        dfs_1(Image,vis,cur_x+1,cur_y,N,pix_value,put_value);
+    }
+    if(cur_y+1<N && vis[cur_x][cur_y+1]==0 && Image[cur_x][cur_y+1]==pix_value)
+    {
+        dfs_1(Image,vis,cur_x,cur_y+1,N,pix_value,put_value);
+    }    
+    if(cur_x-1>=0 && vis[cur_x-1][cur_y]==0 && Image[cur_x-1][cur_y]==pix_value)
+    {
+        dfs_1(Image,vis,cur_x-1,cur_y,N,pix_value,put_value);
+    } 
+    if(cur_y-1>=0 && vis[cur_x][cur_y-1]==0 && Image[cur_x][cur_y-1]==pix_value)
+    {
+        dfs_1(Image,vis,cur_x,cur_y-1,N,pix_value,put_value);
+    } 
+
+    return;
+}
+
+int main()
+{
+    int N; // Image size NxN
+    cin>>N;
+    int Image[30][30] = {0};
+    bool vis[30][30] = {0};
+
+    int cur_x,cur_y;
+    int pix_value = -1;
+    int put_value = -1;
+
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N;j++)
+        {
+            cin>>Image[i][j];
+        }
+    }
+
+    cin>>cur_x>>cur_y;
+    cin>>put_value;
+    display_array(Image,N);
+
+    vis[cur_x][cur_y] = 1;
+    pix_value = Image[cur_x][cur_y];
+
+    dfs_1(Image,vis,cur_x,cur_y,N,pix_value,put_value);
+    display_array(Image,N);
+
+    return 0;
+
+}
