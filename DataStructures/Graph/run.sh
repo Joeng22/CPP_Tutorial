@@ -1,3 +1,3 @@
 clear
-g++ graph_1.cpp -o output
+g++ graph_2.cpp -o output
 ./output
